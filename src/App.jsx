@@ -1,29 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import PlaceHolderAvatar from "./assets/placeHolderAvg.png";
+import Contacts from "./data/contacts.json"
 
-const FALLBACK_CONTACTS = [
-    {
-        id: 1,
-        name: "Ada Lovelace",
-        phone: "(555) 010-0101",
-        email: "ada@example.com",
-    },
-    {
-        id: 2,
-        name: "Alan Turing",
-        phone: "(555) 010-0102",
-        email: "alan@example.com",
-    },
-    {
-        id: 3,
-        name: "Grace Hopper",
-        phone: "(555) 010-0103",
-        email: "grace@example.com",
-    },
-];
 
 const App = () => {
-    const [contacts, setContacts] = useState(FALLBACK_CONTACTS);
+    const [contacts, setContacts] = useState(Contacts);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -41,7 +23,7 @@ const App = () => {
         <main className="page" data-testid="page-root">
             <header className="page__header">
                 <h1 className="page__title">Phonebook Challenge</h1>
-                <p className="page__subtitle">Build a simple contact directory</p>
+                <p className="page__subtitle">A simple contact directory</p>
             </header>
 
             <section className="search" aria-labelledby="search-heading">
@@ -68,6 +50,22 @@ const App = () => {
 
             <section className="contacts" aria-labelledby="contacts-heading">
                 <h2 id="contacts-heading">Contacts</h2>
+                <ul className="contacts__grid">
+                    {
+                        contacts.map((contact) => (
+                            <li className="contact-card" key={contact.id}>
+                                <img
+                                    className="contact-card__avatar"
+                                    src={PlaceHolderAvatar}
+                                    alt={`${contact.name}'s avatar`}
+                                />
+                                <h3 className="contact-card__name">{contact.name}</h3>
+                                <p className="contact-card__phone">{contact.phone}</p>
+                                <p className="contact-card__email">{contact.email}</p>
+                            </li>
+                        ))
+                    }
+                </ul>
             </section>
 
             <section className="form" aria-labelledby="form-heading">
@@ -79,6 +77,7 @@ const App = () => {
                             id="name"
                             name="name"
                             value={form.name}
+                            placeholder="John Smith"
                             onChange={(e) => setForm({ ...form, name: e.target.value })}
                             required
                             minLength={2}
@@ -104,12 +103,14 @@ const App = () => {
                             id="email"
                             name="email"
                             type="email"
+                            placeholder="john@example.com"
                             value={form.email}
                             onChange={(e) =>
                                 setForm({ ...form, email: e.target.value })
                             }
                         />
                     </div>
+                    <br />
                     <div className="form__actions">
                         <button className="btn" type="submit" data-testid="btn-add">
                             Add Contact

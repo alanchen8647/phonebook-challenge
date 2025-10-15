@@ -9,6 +9,9 @@
     gap: 0.5rem;
     margin-bottom: 1.5rem;
     text-align: left;
+    background-color: #48b448;
+    padding: 1rem;
+    border-radius: 12px;
 }
 
 .page__title {
@@ -18,7 +21,7 @@
 
 .page__subtitle {
     margin: 0;
-    color: #888;
+    color: #e2e2e2;
 }
 
 .toolbar {
@@ -35,6 +38,8 @@
     background: #1a1a1a;
     color: inherit;
     cursor: pointer;
+    margin-right:auto;
+    margin-left: auto;
 }
 
 .theme {
@@ -70,7 +75,7 @@
     padding: 0;
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: 1rem;
 }
 
@@ -79,6 +84,9 @@
     border-radius: 12px;
     padding: 1rem;
     background: #111;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .contact-card__name {
@@ -101,7 +109,7 @@
 .form__body {
     display: grid;
     gap: 0.75rem 1rem;
-    grid-template-columns: 1fr 1fr 160px auto;
+    grid-template-columns: auto auto auto;
     align-items: end;
 }
 
@@ -117,6 +125,15 @@ select {
     padding: 0.5rem 0.75rem;
     background: #1a1a1a;
     color: inherit;
+}
+
+.contact-card__avatar{
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
 }
 
 .form__actions {
