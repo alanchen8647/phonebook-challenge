@@ -1,6 +1,8 @@
 # Phonebook Challenge
 This repository contains a single-page React app scaffolded with Vite. Your task is to build it into a small phonebook/directory: start with a static contact list, then make it dynamic by fetching JSON, adding search, and basic interactivity.
 
+
+
 ## Getting Started
 
 1. Fork this repository to your account.
