@@ -1,32 +1,30 @@
+
 :root {
-  /* Light theme colors */
-  --bg: #0f0f10;
-  --fg: #e7e7e9;
-  --muted: #9aa0a6;
+  --bg: #e7e7e9;
+  --fg: #222222;
+  --muted: #464747;
   --border: #2b2b2e;
-  --accent: #7c8cff;
+  --accent: #2fc01c;
+  --input: #ffffff;
+  --submit: #60e54f;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    /* Dark theme colors for media query */
-    --bg: #ffffff;
-    --fg: #1d1d1f;
-    --muted: #6e6e73;
-    --border: #e5e5ea;
-    --accent: #3c5cff;
-  }
-}
+
+
+
+
 
 * {
     box-sizing: border-box;
 }
+
 
 html,
 body,
 #root {
     height: 100%;
 }
+
 
 body {
     margin: 0;
@@ -46,9 +44,11 @@ body {
     background: var(--bg);
 }
 
+
 a {
     color: var(--accent);
 }
+
 
 button,
 input,
@@ -56,3 +56,5 @@ select {
     font: inherit;
     color: inherit;
 }
+
+

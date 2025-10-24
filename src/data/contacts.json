@@ -3,60 +3,70 @@
         "id": 101,
         "name": "Ada Lovelace",
         "phone": "(555) 010-0101",
-        "email": "ada@example.com"
+        "email": "ada@example.com",
+        "avatar": "f"
     },
     {
         "id": 102,
         "name": "Alan Turing",
         "phone": "(555) 010-0102",
-        "email": "alan@example.com"
+        "email": "alan@example.com",
+        "avatar": "m"
     },
     {
         "id": 103,
         "name": "Grace Hopper",
         "phone": "(555) 010-0103",
-        "email": "grace@example.com"
+        "email": "grace@example.com",
+        "avatar": "f"
     },
     {
         "id": 104,
         "name": "Katherine Johnson",
         "phone": "(555) 010-0104",
-        "email": "katherine@example.com"
+        "email": "katherine@example.com",
+        "avatar": "f"
     },
     {
         "id": 105,
         "name": "Donald Knuth",
         "phone": "(555) 010-0105",
-        "email": "donald@example.com"
+        "email": "donald@example.com",
+        "avatar": "m"
     },
     {
         "id": 106,
         "name": "Linus Torvalds",
         "phone": "(555) 010-0106",
-        "email": "linus@example.com"
+        "email": "linus@example.com",
+        "avatar": "m"
     },
     {
         "id": 107,
         "name": "Tim Berners-Lee",
         "phone": "(555) 010-0107",
-        "email": "tim@example.com"
+        "email": "tim@example.com",
+        "avatar": "m"
     },
     {
         "id": 108,
         "name": "Margaret Hamilton",
         "phone": "(555) 010-0108",
-        "email": "margaret@example.com"
+        "email": "margaret@example.com",
+        "avatar": "f"
     },
     {
         "id": 109,
         "name": "Dennis Ritchie",
         "phone": "(555) 010-0109",
-        "email": "dennis@example.com"
+        "email": "dennis@example.com",
+        "avatar": "m"
     },
     {
         "id": 110,
         "name": "Barbara Liskov",
         "phone": "(555) 010-0110",
-        "email": "barbara@example.com"
+        "email": "barbara@example.com",
+        "avatar": "f"
     }
 ]

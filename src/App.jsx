@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import PlaceHolderAvatar from "./assets/placeHolderAvg.png";
+import femaleAvatar from "./assets/femaleAvatar.png";
+import maleAvatar from "./assets/maleAvatar.png";
+import elderFemaleAvatar from "./assets/elderFemaleAvatar.png";
+import elderMaleAvatar from "./assets/elderMaleAvatar.png";
 import Contacts from "./data/contacts.json"
 
 
@@ -56,7 +60,13 @@ const App = () => {
                             <li className="contact-card" key={contact.id}>
                                 <img
                                     className="contact-card__avatar"
-                                    src={PlaceHolderAvatar}
+                                    src={
+                                        contact.avatar === "f"
+                                            ? femaleAvatar
+                                            : contact.avatar === "m"
+                                            ? maleAvatar
+                                            : PlaceHolderAvatar
+                                    }
                                     alt={`${contact.name}'s avatar`}
                                 />
                                 <h3 className="contact-card__name">{contact.name}</h3>
