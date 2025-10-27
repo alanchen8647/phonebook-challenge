@@ -215,3 +215,25 @@ input:hover{
         grid-template-columns: 1fr 1fr;
     }
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.pagination button {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #3a3a3a;
+    background: var(--submit);
+    color: inherit;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background: #45c537;
+    border-color: #2fae2e;
+}

@@ -12,8 +12,13 @@ const App = () => {
     const [contacts, setContacts] = useState(Contacts);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
-    useEffect(() => {}, []);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(1);
+    
+    useEffect(() => {
+        const ContactForPage = Contacts.slice((currentPage - 1) * itemsPerPage, Math.min(currentPage * itemsPerPage, Contacts.length));
+        setContacts(ContactForPage);
+    }, [currentPage, itemsPerPage]);
 
     const [query, setQuery] = useState("");
 
@@ -21,6 +26,15 @@ const App = () => {
     function handleSubmit(e) {
         e.preventDefault();
         // Add contact submission logic here
+    }
+
+    const handlePreviousPage = () => {
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    }
+
+    const handleNextPage = () => {
+        if (currentPage * itemsPerPage >= Contacts.length) return;
+        setCurrentPage((prevPage) => prevPage + 1);
     }
 
     return (
@@ -50,10 +64,12 @@ const App = () => {
                     {loading ? " (loading...)" : ""}
                     {error ? ` (error: ${error})` : ""}
                 </p>
+                
             </section>
 
             <section className="contacts" aria-labelledby="contacts-heading">
                 <h2 id="contacts-heading">Contacts</h2>
+                
                 <ul className="contacts__grid">
                     {
                         contacts.map((contact) => (
@@ -76,6 +92,18 @@ const App = () => {
                         ))
                     }
                 </ul>
+                <div className="pagination">
+                    <button onClick={handlePreviousPage}>Previous</button>
+                    <span>Page {currentPage}</span>
+                    <button onClick={handleNextPage}>Next</button>
+                    <span>Items per page:</span>
+                    <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))}>
+                        <option value={1}>1</option>
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                    </select>
+                </div>
+
             </section>
 
             <section className="form" aria-labelledby="form-heading">
