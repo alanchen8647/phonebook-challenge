@@ -1,11 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
-import PlaceHolderAvatar from "./assets/placeHolderAvg.png";
-import femaleAvatar from "./assets/femaleAvatar.png";
-import maleAvatar from "./assets/maleAvatar.png";
-import elderFemaleAvatar from "./assets/elderFemaleAvatar.png";
-import elderMaleAvatar from "./assets/elderMaleAvatar.png";
 import Contacts from "./data/contacts.json"
+import Contact from "./components/Contact/Contact.jsx";
 
 
 const App = () => {
@@ -73,22 +69,14 @@ const App = () => {
                 <ul className="contacts__grid">
                     {
                         contacts.map((contact) => (
-                            <li className="contact-card" key={contact.id}>
-                                <img
-                                    className="contact-card__avatar"
-                                    src={
-                                        contact.avatar === "f"
-                                            ? femaleAvatar
-                                            : contact.avatar === "m"
-                                            ? maleAvatar
-                                            : PlaceHolderAvatar
-                                    }
-                                    alt={`${contact.name}'s avatar`}
-                                />
-                                <h3 className="contact-card__name">{contact.name}</h3>
-                                <p className="contact-card__phone">{contact.phone}</p>
-                                <p className="contact-card__email">{contact.email}</p>
-                            </li>
+                            <Contact
+                                key={contact.id}
+                                id={contact.id}
+                                name={contact.name}
+                                avatar={contact.avatar}
+                                phone={contact.phone}
+                                email={contact.email}
+                            />
                         ))
                     }
                 </ul>
