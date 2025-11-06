@@ -16,7 +16,11 @@ const Contact = (props) => {
                             ? femaleAvatar
                             : avatar === "m"
                               ? maleAvatar
-                              : PlaceHolderAvatar
+                              : avatar === "ef"
+                                ? elderFemaleAvatar
+                                : avatar === "em"
+                                  ? elderMaleAvatar
+                                  : PlaceHolderAvatar
                     }
                     alt={`${name}'s avatar`}
                 />

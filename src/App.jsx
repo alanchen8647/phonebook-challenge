@@ -2,26 +2,64 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Contacts from "./data/contacts.json"
 import Contact from "./components/Contact/Contact.jsx";
+import femaleAvatar from "./assets/femaleAvatar.png";
+import maleAvatar from "./assets/maleAvatar.png";
+import elderFemaleAvatar from "./assets/elderFemaleAvatar.png";
+import elderMaleAvatar from "./assets/elderMaleAvatar.png";
+import PlaceHolderAvatar from "./assets/placeHolderAvg.png";
 
 
 const App = () => {
     const [contacts, setContacts] = useState(Contacts);
+    const [filteredContacts, setFilteredContacts] = useState(contacts);
+    const [displayContacts, setDisplayContacts] = useState(filteredContacts);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(1);
+    const [selectedAvatar, setSelectedAvatar] = useState("default");
     
     useEffect(() => {
-        const ContactForPage = Contacts.slice((currentPage - 1) * itemsPerPage, Math.min(currentPage * itemsPerPage, Contacts.length));
-        setContacts(ContactForPage);
-    }, [currentPage, itemsPerPage]);
+        setLoading(true)
+        const ContactForPage = filteredContacts.slice((currentPage - 1) * itemsPerPage, Math.min(currentPage * itemsPerPage, filteredContacts.length));
+        setDisplayContacts(ContactForPage);
+        setLoading(false);
+    }, [currentPage, itemsPerPage,filteredContacts]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [itemsPerPage, filteredContacts]);
+
+
 
     const [query, setQuery] = useState("");
+    useEffect(() => {
+        if (query === "") {
+            setFilteredContacts(contacts);
+            console.log("reset");
+            return;
+        }
+        const result = contacts.filter((contact =>
+            contact.name.toLowerCase().includes(query.toLowerCase()) ||
+            contact.phone.toLowerCase().includes(query.toLowerCase())
+        ));
+        setFilteredContacts(result);
+    }, [query, contacts]);
 
     const [form, setForm] = useState({ name: "", phone: "", email: "" });
+
     function handleSubmit(e) {
         e.preventDefault();
-        // Add contact submission logic here
+        const newContact = {
+            id: Date.now(),
+            name: form.name,
+            phone: form.phone,
+            email: form.email,
+            avatar: selectedAvatar
+        };
+        setContacts((prevContacts) => [...prevContacts, newContact]);
+        setForm({ name: "", phone: "", email: "" });
+        setSelectedAvatar("default");
     }
 
     const handlePreviousPage = () => {
@@ -29,9 +67,10 @@ const App = () => {
     }
 
     const handleNextPage = () => {
-        if (currentPage * itemsPerPage >= Contacts.length) return;
+        if (currentPage * itemsPerPage >= filteredContacts.length) return;
         setCurrentPage((prevPage) => prevPage + 1);
     }
+
 
     return (
         <main className="page" data-testid="page-root">
@@ -67,8 +106,10 @@ const App = () => {
                 <h2 id="contacts-heading">Contacts</h2>
                 
                 <ul className="contacts__grid">
+                    { loading && <p>Loading...</p> }
+                    { error && <p>Error: {error}</p> }
                     {
-                        contacts.map((contact) => (
+                        displayContacts.map((contact) => (
                             <Contact
                                 key={contact.id}
                                 id={contact.id}
@@ -96,7 +137,7 @@ const App = () => {
 
             <section className="form" aria-labelledby="form-heading">
                 <h2 id="form-heading">Add a Contact</h2>
-                <form className="form__body" onSubmit={handleSubmit} noValidate>
+                <form className="form__body" onSubmit={(e) => handleSubmit(e)} noValidate>
                     <div className="field">
                         <label htmlFor="name">Name</label>
                         <input
@@ -134,7 +175,33 @@ const App = () => {
                             onChange={(e) =>
                                 setForm({ ...form, email: e.target.value })
                             }
+                            required
+                            
                         />
+                    </div>
+                    <div className="avatar">
+                        <label htmlFor="avatar">Avatar</label>
+                        <label htmlFor="placeHolder">
+                            <input type="radio" value="ph" name="avatar" checked={selectedAvatar === 'default'} onChange={() => setSelectedAvatar('default')} />
+                            <img src={PlaceHolderAvatar} alt="Placeholder Avatar" className="avatar__img" />
+                        </label>
+                        <label htmlFor="female">
+                            <input type="radio" value="f" name="avatar" checked={selectedAvatar === 'fm'} onChange={() => setSelectedAvatar('fm')} />
+                            <img src={femaleAvatar} alt="Female Avatar" className="avatar__img" />
+                        </label>
+                        <label htmlFor="male">
+                            <input type="radio" value="m" name="avatar" checked={selectedAvatar === 'm'} onChange={() => setSelectedAvatar('m')} />
+                            <img src={maleAvatar} alt="Male Avatar" className="avatar__img" />
+                        </label>
+                        <label htmlFor="elderFemale">
+                            <input type="radio" value="ef" name="avatar" checked={selectedAvatar === 'ef'} onChange={() => setSelectedAvatar('ef')} />
+                            <img src={elderFemaleAvatar} alt="Elder Female Avatar" className="avatar__img" />
+                        </label>
+                        <label htmlFor="elderMale">
+                            <input type="radio" value="em" name="avatar" checked={selectedAvatar === 'em'} onChange={() => setSelectedAvatar('em')} />
+                            <img src={elderMaleAvatar} alt="Elder Male Avatar" className="avatar__img" />
+                        </label>
+
                     </div>
                     <br />
                     <div className="form__actions">
