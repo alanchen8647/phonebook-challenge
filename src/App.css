@@ -210,3 +210,26 @@ input:hover{
     border-radius: 50%;
     object-fit: cover;
 }
+
+.input-error {
+    border-color: red;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
+}
+.input-error :focus {
+    box-shadow: 0 0 0 2px red;
+    border-color: red;
+}
+
+.input-error:hover {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin: 0;
+    height: 1rem;
+    line-height: 1rem;
+    display: block;
+    margin-top: 0.2rem;
+}

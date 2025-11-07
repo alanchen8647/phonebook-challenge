@@ -18,6 +18,28 @@ const App = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(1);
     const [selectedAvatar, setSelectedAvatar] = useState("default");
+
+    const [nameValidationError, setNameValidationError] = useState(false);
+    const [phoneValidationError, setPhoneValidationError] = useState(false);
+    const [emailValidationError, setEmailValidationError] = useState(false);
+
+    useEffect(() => {
+        const fetchContacts = async () => {
+            setLoading(true);
+            try {
+                fetch("path/to/contacts/api")
+                .then(response => response.json())
+                .then(data => {
+                    setContacts(data);
+                });
+            } catch (err) {
+                setError("Failed to fetch contacts.");
+            }
+            setLoading(false);
+        }
+        fetchContacts();
+    }, []);
+
     
     useEffect(() => {
         setLoading(true)
@@ -50,6 +72,19 @@ const App = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (form.name.length < 2) {
+            setNameValidationError(true);
+            return;
+        }
+        if (form.phone.trim() === "") {
+            setPhoneValidationError(true);
+            return;
+        }
+        if (form.email.includes("@") === false) {
+            setEmailValidationError(true);
+            return;
+        }
+
         const newContact = {
             id: Date.now(),
             name: form.name,
@@ -60,6 +95,9 @@ const App = () => {
         setContacts((prevContacts) => [...prevContacts, newContact]);
         setForm({ name: "", phone: "", email: "" });
         setSelectedAvatar("default");
+        setNameValidationError(false);
+        setPhoneValidationError(false);
+        setEmailValidationError(false);
     }
 
     const handlePreviousPage = () => {
@@ -70,6 +108,8 @@ const App = () => {
         if (currentPage * itemsPerPage >= filteredContacts.length) return;
         setCurrentPage((prevPage) => prevPage + 1);
     }
+
+
 
 
     return (
@@ -142,6 +182,7 @@ const App = () => {
                         <label htmlFor="name">Name</label>
                         <input
                             id="name"
+                            className={nameValidationError ? "input-error" : ""}
                             name="name"
                             value={form.name}
                             placeholder="John Smith"
@@ -149,12 +190,15 @@ const App = () => {
                             required
                             minLength={2}
                         />
+                        {nameValidationError && <p className="error-message">Name must be at least 2 characters long.</p>}
                     </div>
                     <div className="field">
                         <label htmlFor="phone">Phone</label>
                         <input
                             id="phone"
                             name="phone"
+                            className={phoneValidationError ? "input-error" : ""}
+                            type="tel"
                             inputMode="tel"
                             placeholder="(555) 555-5555"
                             value={form.phone}
@@ -163,12 +207,14 @@ const App = () => {
                             }
                             required
                         />
+                        {phoneValidationError && <p className="error-message">Phone number is required.</p>}
                     </div>
                     <div className="field">
                         <label htmlFor="email">Email</label>
                         <input
                             id="email"
                             name="email"
+                            className={emailValidationError ? "input-error" : ""}
                             type="email"
                             placeholder="john@example.com"
                             value={form.email}
@@ -176,8 +222,8 @@ const App = () => {
                                 setForm({ ...form, email: e.target.value })
                             }
                             required
-                            
                         />
+                        {emailValidationError && <p className="error-message">Please enter a valid email address.</p>}
                     </div>
                     <div className="avatar">
                         <label htmlFor="avatar">Avatar</label>
